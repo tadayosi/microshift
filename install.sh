@@ -42,7 +42,7 @@ apply_selinux_policy() {
 # Install dependencies
 install_dependencies() {
     sudo dnf install -y \
-    policycoreutils-python-utils \
+    policycoreutils-python \
     conntrack \
     firewalld 
 }
@@ -72,7 +72,7 @@ install_crio() {
       ;;
       "centos")
         CRIOVERSION=1.20
-        OS=CentOS_8_Stream
+        OS=CentOS_7
         sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/devel:kubic:libcontainers:stable.repo
         sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:$CRIOVERSION.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$CRIOVERSION/$OS/devel:kubic:libcontainers:stable:cri-o:$CRIOVERSION.repo
         sudo dnf install -y cri-o cri-tools
@@ -127,7 +127,7 @@ Description=Microshift
 
 [Service]
 WorkingDirectory=/usr/local/bin/
-ExecStart=microshift run
+ExecStart=/usr/local/bin/microshift run
 Restart=always
 User=root
 
